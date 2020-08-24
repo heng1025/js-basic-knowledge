@@ -1,10 +1,4 @@
-/*
- * @Des: 单链表
- * @Author: iron
- * @Date: 2020-08-22 23:31:17
- * @LastEditors: iron
- * @LastEditTime: 2020-08-23 21:28:42
- */
+
 // 定义一个单链表节点
 class Node {
   constructor(element, next = null) {

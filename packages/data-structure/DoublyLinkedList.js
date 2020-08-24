@@ -1,10 +1,3 @@
-/*
- * @Des: double linked list
- * @Author: iron
- * @Date: 2020-08-23 11:18:52
- * @LastEditors: iron
- * @LastEditTime: 2020-08-23 17:07:57
- */
 class TwoWayNode {
   constructor(element, prev = null, next = null) {
     this.element = element;

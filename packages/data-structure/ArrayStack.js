@@ -1,11 +1,3 @@
-/*
- * @Des: Stack
- * @Author: iron
- * @Date: 2020-08-23 17:19:56
- * @LastEditors: iron
- * @LastEditTime: 2020-08-23 21:32:20
- */
-
 // 数组实现
 const _elements = Symbol();
 class ArrayStack {

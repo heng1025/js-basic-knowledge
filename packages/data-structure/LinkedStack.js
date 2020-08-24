@@ -44,10 +44,10 @@ class LinkedStack {
     const arr = [];
     let probe = this[_elements];
     while (probe) {
-      arr.push(probe.element);
+      arr.unshift(probe.element);
       probe = probe.next;
     }
-    return arr.reverse();
+    return arr;
   }
 }
 
@@ -57,8 +57,8 @@ s.push(456);
 s.push(45688);
 const top = s.peek();
 console.log("top", top);
-s.pop();
-s.pop();
-s.pop();
+// s.pop();
+// s.pop();
+// s.pop();
 console.log("s", s);
 console.log("s", s.print());
