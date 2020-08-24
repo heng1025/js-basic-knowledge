@@ -1,10 +1,3 @@
-/*
- * @Des: linked list stack
- * @Author: iron
- * @Date: 2020-08-23 21:01:30
- * @LastEditors: iron
- * @LastEditTime: 2020-08-23 21:42:42
- */
 const { Node } = require("./LinkedList");
 
 const _elements = Symbol();
