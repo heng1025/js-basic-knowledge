@@ -67,6 +67,19 @@ class LinkedBST {
   }
   // 删除
   remove(element) {}
+  // 先序 (根->左->右)
+  preOrder() {
+    const arr = [];
+    function recurse(node) {
+      if (node) {
+        arr.push(node.element);
+        recurse(node.left);
+        recurse(node.right);
+      }
+    }
+    recurse(this._root);
+    return arr;
+  }
   // 中序 (左->根->右)
   inOrder() {
     const arr = [];
@@ -93,18 +106,19 @@ class LinkedBST {
     recurse(this._root);
     return arr;
   }
-  // 层序 (按层级从佐到右的顺序访问)
+  // 层序 (按层级从左到右的顺序访问)
   levelOrder() {
     const arr = [];
-    const stack = [this._root];
-    while (stack.length > 0) {
-      const node = stack.pop();
+    // 队列实现
+    const queue = [this._root];
+    while (queue.length > 0) {
+      const node = queue.shift();
       arr.push(node.element);
-      if (node.right) {
-        stack.push(node.right);
-      }
       if (node.left) {
-        stack.push(node.left);
+        queue.push(node.left);
+      }
+      if (node.right) {
+        queue.push(node.right);
       }
     }
 
@@ -124,6 +138,7 @@ bst.add(9);
 const re = bst.find(51);
 console.log("re", re);
 console.log("bst", bst);
+console.log("bst preOrder", bst.preOrder());
 console.log("bst inorder", bst.inOrder());
 console.log("bst postorder", bst.postOrder());
 console.log("bst levelorder", bst.levelOrder());
