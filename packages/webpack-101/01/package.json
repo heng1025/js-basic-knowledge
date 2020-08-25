@@ -1,0 +1,9 @@
+{
+  "name": "webpack-101",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "webpack"
+  }
+}

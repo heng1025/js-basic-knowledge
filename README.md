@@ -2,9 +2,11 @@
 
 ### In progress
 - data structure
+- webpack
 
 ### TODO
-- webpack
+- mvvm
+- virtual dom
 - vue
 - react
 - angular
