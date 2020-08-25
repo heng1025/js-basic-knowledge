@@ -1,6 +1,10 @@
 {
   "name": "js-basic-knowledge",
-  "private": false,
+  "private": true,
+  "license": "MIT",
+  "workspaces": [
+    "packages/*"
+  ],
   "devDependencies": {
     "lerna": "^3.22.1"
   }

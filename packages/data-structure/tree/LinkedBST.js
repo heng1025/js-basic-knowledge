@@ -106,7 +106,7 @@ class LinkedBST {
     recurse(this._root);
     return arr;
   }
-  // 层序 (按层级从左到右的顺序访问)
+  // 层序 (按层级从左到右的顺序访问,即广度优先遍历)
   levelOrder() {
     const arr = [];
     // 队列实现
