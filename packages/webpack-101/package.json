@@ -3,8 +3,12 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "base": "webpack",
+    "asset": "webpack --config webpack.asset.js"
+  },
   "devDependencies": {
-    "webpack": "^4.44.1",
-    "webpack-cli": "^3.3.12"
+    "css-loader": "^4.2.2",
+    "style-loader": "^1.2.1"
   }
 }
