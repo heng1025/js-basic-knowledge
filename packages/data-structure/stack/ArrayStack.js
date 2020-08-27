@@ -8,6 +8,9 @@ class ArrayStack {
   size() {
     return this[_elements].length;
   }
+  isEmpty() {
+    return this.size() === 0;
+  }
   // 获取栈顶元素
   peek() {
     return this[_elements][this.size() - 1];

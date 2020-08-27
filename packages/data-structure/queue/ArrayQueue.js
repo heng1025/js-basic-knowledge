@@ -6,8 +6,11 @@ const ArrayQueue = (function () {
     constructor() {
       wkm.set(this, []);
     }
+    size() {
+      return wkm.get(this).length;
+    }
     isEmpty() {
-      return wkm.get(this).length === 0;
+      return this.size() === 0;
     }
     front() {
       if (this.isEmpty()) {
@@ -32,18 +35,4 @@ const ArrayQueue = (function () {
   };
 })();
 
-const q = new ArrayQueue();
-q.enqueue(123);
-q.enqueue(456);
-q.enqueue("abc");
-const f = q.front();
-console.log("f", f);
-// const r = q.dequeue();
-// const r1 = q.dequeue();
-// const r2 = q.dequeue();
-// const r3 = q.dequeue();
-// console.log("r2", r2);
-// console.log("r", r);
-// const f1 = q.front();
-// console.log("f1", f1);
-console.log("queue", q.print());
+module.exports = ArrayQueue;

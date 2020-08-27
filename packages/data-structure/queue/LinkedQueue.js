@@ -70,15 +70,4 @@ class LinkedQueue {
   }
 }
 
-const q = new LinkedQueue();
-q.enqueue(123);
-q.enqueue(456);
-q.enqueue("abc");
-const f = q.front();
-console.log("f", f);
-// const r = q.dequeue();
-// const r1 = q.dequeue();
-// const r2 = q.dequeue();
-// console.log("r2", r2);
-// console.log("r", r);
-console.log("queue", q.print());
+module.exports = LinkedQueue;
