@@ -9,6 +9,7 @@
   },
   "devDependencies": {
     "css-loader": "^4.2.2",
+    "less-loader": "^7.0.0",
     "style-loader": "^1.2.1"
   }
 }

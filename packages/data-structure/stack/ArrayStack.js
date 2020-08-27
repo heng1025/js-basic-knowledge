@@ -1,5 +1,6 @@
 // 数组实现
 const _elements = Symbol();
+
 class ArrayStack {
   constructor() {
     this[_elements] = [];
@@ -22,16 +23,4 @@ class ArrayStack {
   }
 }
 
-const s = new ArrayStack();
-s.push(123);
-s.push(456);
-s.pop()
-const top = s.peek();
-// const top1 = s.peek();
-// const top2 = s.peek();
-console.log("top", top);
-// s.pop();
-// s.pop();
-// s.pop();
-console.log("s", s.print());
-s.pop()
+module.exports = ArrayStack;

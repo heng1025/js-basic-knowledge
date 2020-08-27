@@ -1,4 +1,4 @@
-const { Node } = require("./LinkedList");
+const { Node } = require("../linked-list/LinkedList");
 
 const _elements = Symbol();
 const _size = Symbol();
@@ -7,6 +7,9 @@ class LinkedStack {
   constructor() {
     this[_elements] = null;
     this[_size] = 0;
+  }
+  size() {
+    return this[_size];
   }
   isEmpty() {
     return this[_size] === 0;
@@ -44,14 +47,4 @@ class LinkedStack {
   }
 }
 
-const s = new LinkedStack();
-s.push(123);
-s.push(456);
-s.push(45688);
-const top = s.peek();
-console.log("top", top);
-// s.pop();
-// s.pop();
-// s.pop();
-console.log("s", s);
-console.log("s", s.print());
+module.exports = LinkedStack;
