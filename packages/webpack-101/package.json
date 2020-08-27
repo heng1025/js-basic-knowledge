@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "base": "webpack",
-    "asset": "webpack --config webpack.assets.js"
+    "assets": "webpack --config webpack.assets.js"
   },
   "devDependencies": {
     "css-loader": "^4.2.2",
