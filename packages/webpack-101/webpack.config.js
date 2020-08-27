@@ -1,9 +1,9 @@
 const path = require("path");
 
 module.exports = {
-  entry: "./src/index.js",
+  entry: "./src/base.js",
   output: {
-    filename: "[name]-[hash:8].js",
+    filename: "main.js",
     path: path.resolve(__dirname, "dist"),
   },
   mode: "development",
