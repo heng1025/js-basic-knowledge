@@ -86,14 +86,27 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./src/func.js":
+/*!*********************!*\
+  !*** ./src/func.js ***!
+  \*********************/
+/*! exports provided: func */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"func\", function() { return func; });\nfunction func() {\n  return \"abc\";\n}\n\n\n//# sourceURL=webpack:///./src/func.js?");
+
+/***/ }),
+
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-eval("\n\n//# sourceURL=webpack:///./src/index.js?");
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _func__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./func */ \"./src/func.js\");\n\n\nObject(_func__WEBPACK_IMPORTED_MODULE_0__[\"func\"])();\nconsole.log(11231);\n\n\n//# sourceURL=webpack:///./src/index.js?");
 
 /***/ })
 
