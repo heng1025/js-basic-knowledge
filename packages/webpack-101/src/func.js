@@ -1,3 +1,5 @@
 export function func() {
-  return "abc";
+  return 'abc'
 }
+
+console.log(456)
