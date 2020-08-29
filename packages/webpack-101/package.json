@@ -4,13 +4,13 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "base": "webpack",
-    "asset": "webpack-dev-server --config webpack.assets.js"
+    "dev": "webpack-dev-server"
   },
   "devDependencies": {
     "@babel/core": "^7.11.4",
     "@babel/preset-env": "^7.11.0",
     "babel-loader": "^8.1.0",
+    "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^4.2.2",
     "html-webpack-plugin": "^4.3.0",
     "less-loader": "^7.0.0",
