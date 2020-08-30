@@ -1,7 +1,6 @@
 ## learn basic theory for javascript
 
 ### In progress
-- data structure
 - webpack
 
 ### TODO
@@ -16,3 +15,4 @@
 - hooks
 - angular
 - http
+- ssr
