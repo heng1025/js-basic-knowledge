@@ -1,0 +1,9 @@
+{
+  "name": "webpack-iron",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "bin": {
+    "ironpack": "./bin/index.js"
+  }
+}
