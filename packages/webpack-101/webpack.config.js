@@ -59,13 +59,13 @@ module.exports = {
       filename: '[name].css',
       chunkFilename: '[id].css',
     }),
+    new OptimizeCssAssetsPlugin(),
   ],
   optimization: {
     splitChunks: {
       chunks: 'all',
     },
     minimizer: [
-      new OptimizeCssAssetsPlugin(),
       new UglifyJsPlugin({
         cache: true,
         parallel: true,

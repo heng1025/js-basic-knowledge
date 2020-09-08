@@ -1,1 +1,2 @@
-console.log(123)
+import add from './add.js'
+console.log(567)
