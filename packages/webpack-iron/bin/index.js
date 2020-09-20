@@ -4,10 +4,11 @@
 // prepare
 // 1. 获取配置文件并解析
 // 2. analyse deps
-// 3. compile
+// 3. define require and epoxrt ,then generate template
 // 4. output
 
 // https://astexplorer.net/
+// https://juejin.im/post/6844903858179670030
 
 const path = require('path')
 const fs = require('fs')
@@ -15,16 +16,11 @@ const fs = require('fs')
 const { parse: babelParser } = require('@babel/parser')
 // traverse ast
 const { default: babelTraverse } = require('@babel/traverse')
-// generate source from ast
-const { default: generate } = require('@babel/generator')
 // transform es6 and generate source from ast
 const { transformFromAstSync } = require('@babel/core')
+const rimraf = require('rimraf')
 
-// config path
-const configPath = path.resolve('ironpack.config.js')
-
-const config = require(configPath)
-const { entry, output } = config
+const config = require(path.resolve('ironpack.config.js'))
 
 // build single file
 function buildModule(file) {
@@ -35,18 +31,19 @@ function buildModule(file) {
     sourceType: 'module', // es6 module
   })
 
-  const { code } = transformFromAstSync(ast, null, {
-    presets: ['@babel/preset-env'],
-  })
-
   babelTraverse(ast, {
     // 根据模块导入提取依赖
     ImportDeclaration({ node }) {
       const { value } = node.source
       const dirname = path.dirname(file)
       const moduleName = `./${path.join(dirname, value)}`
+      node.source.value = moduleName
       deps.push(moduleName)
     },
+  })
+
+  const { code } = transformFromAstSync(ast, null, {
+    presets: ['@babel/preset-env'],
   })
 
   return {
@@ -60,13 +57,14 @@ function buildModule(file) {
 // collection all deps
 function parseModules(file) {
   const entryModule = buildModule(file)
-  const output = [entryModule]
+  const output = { ...entryModule }
   function recursionDeps(deps) {
     deps.forEach((dep) => {
       const module = buildModule(dep)
-      output.push(module)
-      if (module[dep].deps.length) {
-        recursionDeps(module[dep].deps)
+      Object.assign(output, module)
+      const moduleDeps = module[dep].deps
+      if (moduleDeps.length) {
+        recursionDeps(moduleDeps)
       }
     })
   }
@@ -74,20 +72,29 @@ function parseModules(file) {
   return output
 }
 
-// function generateBundleTemplate(deps) {
-//   const deps = parseModules(entry)
-//   (function (deps) {})(deps)
-// }
+function generateBundleTemplate(file) {
+  const depsGraph = JSON.stringify(parseModules(file))
+  return `(function (graph) {
+    function require(f) {
+      var exports = {};
+      ;(function (exports, code) {
+        eval(code)
+      })(exports, graph[f].code)
+      return exports
+    }
+    require('${file}')
+  })(${depsGraph})`
+}
 
-function emitFile(output, deps) {
+function emitFile({ entry = './src/index.js', output = 'dist/main.js' }) {
   const dirname = path.dirname(output)
+  rimraf.sync(dirname)
   if (dirname) {
     fs.mkdirSync(dirname)
   }
-  // fs.writeFileSync(output, JSON.stringify(deps))
+
+  let content = generateBundleTemplate(entry)
+  fs.writeFileSync(output, content)
 }
 
-// const deps = parseModules(entry)
-const deps = buildModule(entry)
-console.log('deps', deps)
-// emitFile(output, deps)
+emitFile(config)
