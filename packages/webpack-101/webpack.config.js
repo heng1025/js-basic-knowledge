@@ -19,6 +19,7 @@ module.exports = {
   output: {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),
+    // publicPath: 'https://cdn.con', // CDN
   },
   devtool: 'source-map',
   module: {

@@ -2,56 +2,92 @@
 
 // step
 // prepare
-// 获取配置文件并解析
+// 1. 获取配置文件并解析
+// 2. analyse deps
+// 3. compile
+// 4. output
 
-// 1. get source
-// 2. compile
-// 3. output
+// https://astexplorer.net/
+
 const path = require('path')
 const fs = require('fs')
-const babelParser = require('@babel/parser')
+// get ast from source
+const { parse: babelParser } = require('@babel/parser')
+// traverse ast
 const { default: babelTraverse } = require('@babel/traverse')
+// generate source from ast
 const { default: generate } = require('@babel/generator')
+// transform es6 and generate source from ast
+const { transformFromAstSync } = require('@babel/core')
 
 // config path
 const configPath = path.resolve('ironpack.config.js')
+
 const config = require(configPath)
 const { entry, output } = config
 
-const entryPath = path.resolve(configPath, '..', entry)
+// build single file
+function buildModule(file) {
+  const content = fs.readFileSync(file, 'utf8')
+  const deps = []
 
-function getDeps(filePath) {
-  const deps = {}
-  const file = fs.readFileSync(filePath, 'utf8')
-  const ast = babelParser.parse(file, {
-    sourceType: 'module',
+  const ast = babelParser(content, {
+    sourceType: 'module', // es6 module
+  })
+
+  const { code } = transformFromAstSync(ast, null, {
+    presets: ['@babel/preset-env'],
   })
 
   babelTraverse(ast, {
+    // 根据模块导入提取依赖
     ImportDeclaration({ node }) {
-      const dirname = path.dirname(filePath)
       const { value } = node.source
-      deps[value] = path.join(dirname, value)
+      const dirname = path.dirname(file)
+      const moduleName = `./${path.join(dirname, value)}`
+      deps.push(moduleName)
     },
   })
-  return deps
+
+  return {
+    [file]: {
+      code,
+      deps,
+    },
+  }
 }
 
-// transform all deps
-// const deps = parseFile(entrySource)
-// console.log('deps', deps)
-
-function parseModules(filePath) {
-  const temp = []
-  function traverse(deps) {
-    Object.values(deps).forEach(([key, value]) => {
-      traverse(deps)
+// collection all deps
+function parseModules(file) {
+  const entryModule = buildModule(file)
+  const output = [entryModule]
+  function recursionDeps(deps) {
+    deps.forEach((dep) => {
+      const module = buildModule(dep)
+      output.push(module)
+      if (module[dep].deps.length) {
+        recursionDeps(module[dep].deps)
+      }
     })
   }
-  traverse(getDeps(filePath))
+  recursionDeps(entryModule[file].deps)
+  return output
 }
 
-parseModule()
-// generate code from ast
-// const { code } = generate(ast)
-// console.log('code', code)
+// function generateBundleTemplate(deps) {
+//   const deps = parseModules(entry)
+//   (function (deps) {})(deps)
+// }
+
+function emitFile(output, deps) {
+  const dirname = path.dirname(output)
+  if (dirname) {
+    fs.mkdirSync(dirname)
+  }
+  // fs.writeFileSync(output, JSON.stringify(deps))
+}
+
+// const deps = parseModules(entry)
+const deps = buildModule(entry)
+console.log('deps', deps)
+// emitFile(output, deps)
