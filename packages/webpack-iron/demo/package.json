@@ -1,0 +1,15 @@
+{
+  "name": "ironpack-example",
+  "version": "0.0.2",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "rimraf dist/ && ironpack",
+    "build-webpack": "rimraf dist/ && webpack --config ironpack.config.js"
+  },
+  "devDependencies": {
+    "rimraf": "^3.0.2",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
+  }
+}

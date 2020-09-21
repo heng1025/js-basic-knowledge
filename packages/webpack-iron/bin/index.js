@@ -18,7 +18,6 @@ const { parse: babelParser } = require('@babel/parser')
 const { default: babelTraverse } = require('@babel/traverse')
 // transform es6 and generate source from ast
 const { transformFromAstSync } = require('@babel/core')
-const rimraf = require('rimraf')
 
 const config = require(path.resolve('ironpack.config.js'))
 
@@ -86,15 +85,22 @@ function generateBundleTemplate(file) {
   })(${depsGraph})`
 }
 
-function emitFile({ entry = './src/index.js', output = 'dist/main.js' }) {
-  const dirname = path.dirname(output)
-  rimraf.sync(dirname)
-  if (dirname) {
+function emitFile({ entry = './src/index.js', output = {} }) {
+  const defaultPath = path.join(process.cwd(), 'dist')
+  const { filename = 'main.js', path: outpath = defaultPath } = output
+
+  const dirname = path.dirname(filename)
+
+  if (dirname !== '.') {
     fs.mkdirSync(dirname)
   }
+  if (outpath) {
+    fs.mkdirSync(outpath)
+  }
 
-  let content = generateBundleTemplate(entry)
-  fs.writeFileSync(output, content)
+  console.log(path.join(outpath, filename))
+  const content = generateBundleTemplate(entry)
+  fs.writeFileSync(path.join(outpath, filename), content)
 }
 
 emitFile(config)

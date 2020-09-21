@@ -7,9 +7,9 @@
     "ironpack": "./bin/index.js"
   },
   "dependencies": {
+    "@babel/core": "^7.11.6",
     "@babel/parser": "^7.11.5",
     "@babel/preset-env": "^7.11.5",
-    "@babel/traverse": "^7.11.5",
-    "rimraf": "^3.0.2"
+    "@babel/traverse": "^7.11.5"
   }
 }
