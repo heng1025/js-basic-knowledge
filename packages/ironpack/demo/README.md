@@ -1,3 +1,3 @@
 ### dev
-- `yarn link webpack-iron` 
-- `ironpack`
+- `yarn link ironpack` 
+- `yarn build`
