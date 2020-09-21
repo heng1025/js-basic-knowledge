@@ -98,7 +98,6 @@ function emitFile({ entry = './src/index.js', output = {} }) {
     fs.mkdirSync(outpath)
   }
 
-  console.log(path.join(outpath, filename))
   const content = generateBundleTemplate(entry)
   fs.writeFileSync(path.join(outpath, filename), content)
 }
