@@ -21,37 +21,37 @@ function createElement(type, props, ...children) {
   }
 }
 
-// render React Node
-function render(element, container) {
+// create dom according to fiber
+function createDom(fiber) {
   // text node
   const dom =
-    element.type === 'TEXT_ELEMENT'
+  fiber.type === 'TEXT_ELEMENT'
       ? document.createTextNode('')
-      : document.createElement(element.type)
+      : document.createElement(fiber.type)
 
   // assign props
-  Object.keys(element.props)
+  Object.keys(fiber.props)
     .filter((key) => key !== 'children')
     .forEach((name) => {
-      dom[name] = element.props[name]
+      dom[name] = fiber.props[name]
     })
 
-  // recursive add child element
-  element.props.children.forEach((child) => {
-    render(child, dom)
-  })
-
-  // add to document
-  container.appendChild(dom)
+  return dom
 }
 
-const IReact = {
-  createElement,
-  render,
+// render React Node
+function render(element, container) {
+  // root fiber
+  nextUnitOfWork = {
+    dom: container,
+    props: {
+      children: [element],
+    },
+  }
 }
 
-// Concurrent Mode
 let nextUnitOfWork = null
+
 function workLoop(deadline) {
   let shouldYield = false
   while (nextUnitOfWork && !shouldYield) {
@@ -61,9 +61,62 @@ function workLoop(deadline) {
   requestIdleCallback(workLoop)
 }
 
+// https://developer.mozilla.org/zh-CN/docs/Web/API/Window/requestIdleCallback
+// requestIdleCallback(callback[, options])方法将在浏览器的空闲时段内调用的函数排队
 requestIdleCallback(workLoop)
 
-function performUnitOfWork(nextUnitOfWork) {}
+function performUnitOfWork(fiber) {
+  if (!fiber.dom) {
+    fiber.dom = createDom(fiber)
+  }
+
+  if (fiber.parent) {
+    fiber.parent.dom.appendChild(fiber.dom)
+  }
+
+  // create new fiber for cach child
+  const elements = fiber.props.children
+  let index = 0
+  let prevSibling = null
+
+  while (index < elements.length) {
+    const element = elements[index]
+    const newFiber = {
+      type: element.type,
+      props: element.props,
+      parent: fiber,
+      dom: null,
+    }
+
+    // add it to fiber tree
+    if (index === 0) {
+      fiber.child = newFiber
+    } else {
+      prevSibling.sibling = newFiber
+    }
+    prevSibling = newFiber
+    index++
+  }
+
+  // then find next unit of work
+  // search order: child -> sibling -> uncle
+  if (fiber.child) {
+    return fiber.child
+  }
+
+  let nextFiber = fiber
+  while (nextFiber) {
+    if (nextFiber.sibling) {
+      return nextFiber.sibling
+    }
+    nextFiber = nextFiber.parent
+  }
+}
+
+const IReact = {
+  createElement,
+  render,
+}
 
 const root = document.getElementById('root')
 const node = IReact.createElement('h1', { title: 'foo' }, 'Hello World')
