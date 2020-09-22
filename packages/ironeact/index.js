@@ -25,7 +25,7 @@ function createElement(type, props, ...children) {
 function createDom(fiber) {
   // text node
   const dom =
-  fiber.type === 'TEXT_ELEMENT'
+    fiber.type === 'TEXT_ELEMENT'
       ? document.createTextNode('')
       : document.createElement(fiber.type)
 
@@ -39,24 +39,46 @@ function createDom(fiber) {
   return dom
 }
 
+// add root fiber to dom
+function commitRoot() {
+  console.log('root', wipRoot)
+  commitWork(wipRoot.child)
+  wipRoot = null
+}
+
+function commitWork(fiber) {
+  if (!fiber) {
+    return
+  }
+  const domParent = fiber.parent.dom
+  domParent.appendChild(fiber.dom)
+  commitWork(fiber.child)
+  commitWork(fiber.sibling)
+}
+
 // render React Node
 function render(element, container) {
   // root fiber
-  nextUnitOfWork = {
+  wipRoot = {
     dom: container,
     props: {
       children: [element],
     },
   }
+  nextUnitOfWork = wipRoot
 }
 
 let nextUnitOfWork = null
+let wipRoot = null
 
 function workLoop(deadline) {
   let shouldYield = false
   while (nextUnitOfWork && !shouldYield) {
     nextUnitOfWork = performUnitOfWork(nextUnitOfWork)
     shouldYield = deadline.timeRemaining() < 1
+  }
+  if (!nextUnitOfWork && wipRoot) {
+    commitRoot()
   }
   requestIdleCallback(workLoop)
 }
@@ -70,9 +92,10 @@ function performUnitOfWork(fiber) {
     fiber.dom = createDom(fiber)
   }
 
-  if (fiber.parent) {
-    fiber.parent.dom.appendChild(fiber.dom)
-  }
+  // can't add node to dom,before we finish rendering the whole tree
+  // if (fiber.parent) {
+  //   fiber.parent.dom.appendChild(fiber.dom)
+  // }
 
   // create new fiber for cach child
   const elements = fiber.props.children
