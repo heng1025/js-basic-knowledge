@@ -2,14 +2,20 @@
 const node = (
   <div>
     <h1>
-      <p>xiaoming</p>
+      <p
+        onClick={() => {
+          console.log('click');
+        }}
+      >
+        xiaoming
+      </p>
       <a>iron</a>
     </h1>
     <h2>heng</h2>
   </div>
-)
+);
 
-console.log('node', node)
+console.log('node', node);
 
-const root = document.getElementById('root')
-IReact.render(node, root)
+const root = document.getElementById('root');
+IReact.render(node, root);

@@ -1,6 +1,7 @@
-const isProperty = (key) => key !== 'children';
-const isNew = (prev, next) => (key) => prev[key] !== next[key];
-const isGone = (prev, next) => (key) => !(key in next);
+const isEvent = key => key.startsWith('on');
+const isProperty = key => key !== 'children' && !isEvent(key);
+const isNew = (prev, next) => key => prev[key] !== next[key];
+const isGone = (prev, next) => key => !(key in next);
 
 function createTextElement(text) {
   return {
@@ -18,7 +19,7 @@ function createElement(type, props, ...children) {
     type,
     props: {
       ...props,
-      children: children.map((child) =>
+      children: children.map(child =>
         typeof child === 'object' ? child : createTextElement(child)
       ),
     },
@@ -33,28 +34,44 @@ function createDom(fiber) {
       ? document.createTextNode('')
       : document.createElement(fiber.type);
 
-  // assign props
-  Object.keys(fiber.props)
-    .filter(isProperty)
-    .forEach((name) => {
-      dom[name] = fiber.props[name];
-    });
+  // assign props (includes event)
+  updateDom(dom, {}, fiber.props);
 
   return dom;
 }
 
 function updateDom(dom, prevProps, nextProps) {
+  // remove old event listeners
+  Object.keys(prevProps)
+    .filter(isEvent)
+    .filter(key => !(key in nextProps) || isNew(prevProps, nextProps))
+    .forEach(name => {
+      const eventType = name.toLowerCase().substring(2);
+      console.log('updateDom -> eventType', eventType);
+      dom.removeEventListener(eventType, prevProps[name]);
+    });
+
   // remove old props
   Object.keys(prevProps)
     .filter(isProperty)
     .filter(isGone(prevProps, nextProps))
-    .forEach((name) => (dom[name] = ''));
+    .forEach(name => (dom[name] = ''));
 
   // modify props
   Object.keys(nextProps)
     .filter(isProperty)
-    .filter(isGone(prevProps, nextProps))
-    .forEach((name) => (dom[name] = nextProps[name]));
+    .filter(isNew(prevProps, nextProps))
+    .forEach(name => (dom[name] = nextProps[name]));
+
+  // add event listeners
+  Object.keys(nextProps)
+    .filter(isEvent)
+    .filter(isNew(prevProps, nextProps))
+    .forEach(name => {
+      const eventType = name.toLowerCase().substring(2);
+      console.log('updateDom -> eventType', eventType);
+      dom.addEventListener(eventType, nextProps[name]);
+    });
 }
 
 // add root fiber to dom
@@ -149,6 +166,7 @@ function reconcileChildren(wipFiber, elements) {
 
   while (index < elements.length || oldFiber) {
     const element = elements[index];
+    let newFiber = null;
     const sameType = oldFiber && element && element.type === oldFiber.type;
 
     // 1. if the old fiber and the new element have the same type,
