@@ -26,5 +26,11 @@ function App(props) {
   );
 }
 
+function Counter() {
+  const [count, setCount] = IReact.useState(0);
+  return <div onClick={() => setCount(c => c + 1)}>Count:{count}</div>;
+}
+
+// render to document
 const root = document.getElementById('root');
-IReact.render(<App />, root);
+IReact.render(<Counter />, root);
