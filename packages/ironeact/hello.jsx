@@ -1,5 +1,3 @@
-const root = document.getElementById('root')
-
 /* @jsx IReact.createElement */
 const node = (
   <div>
@@ -11,7 +9,7 @@ const node = (
   </div>
 )
 
-/* const node = IReact.createElement('h1', { title: 'foo' }, 'Hello World') */
-
 console.log('node', node)
+
+const root = document.getElementById('root')
 IReact.render(node, root)
