@@ -3,8 +3,8 @@ const node = (
   <div>
     <h1>
       <p
-        onClick={() => {
-          console.log('click');
+        onClick={e => {
+          console.log('click', e);
         }}
       >
         xiaoming
@@ -17,5 +17,14 @@ const node = (
 
 console.log('node', node);
 
+function App(props) {
+  console.log('App -> props', props);
+  return (
+    <div>
+      <div>function compoent</div>
+    </div>
+  );
+}
+
 const root = document.getElementById('root');
-IReact.render(node, root);
+IReact.render(<App />, root);
