@@ -9,13 +9,13 @@ const node = (
       >
         xiaoming
       </p>
-      <a>iron</a>
+      <a b="1">iron</a>
     </h1>
-    <h2>heng</h2>
+    <h2 foo="668">heng</h2>
   </div>
 );
 
-console.log('node', node);
+// console.log('node', node);
 
 function App(props) {
   console.log('App -> props', props);
@@ -28,7 +28,19 @@ function App(props) {
 
 function Counter() {
   const [count, setCount] = IReact.useState(0);
-  return <div onClick={() => setCount(c => c + 1)}>Count:{count}</div>;
+  const [time, setTime] = IReact.useState(10);
+  return (
+    <div>
+      <button onClick={() => setCount(c => c + 1)} a="1" style="width: 30px">
+        +
+      </button>
+      Count:{count}
+      <button onClick={() => setTime(t => t - 1)} style="width: 30px">
+        -
+      </button>
+      Time:{time}
+    </div>
+  );
 }
 
 // render to document

@@ -44,10 +44,9 @@ function updateDom(dom, prevProps, nextProps) {
   // remove old event listeners
   Object.keys(prevProps)
     .filter(isEvent)
-    .filter(key => !(key in nextProps) || isNew(prevProps, nextProps))
+    .filter(key => !(key in nextProps) || isNew(prevProps, nextProps)(key))
     .forEach(name => {
       const eventType = name.toLowerCase().substring(2);
-      console.log('updateDom -> eventType', eventType);
       dom.removeEventListener(eventType, prevProps[name]);
     });
 
@@ -55,13 +54,20 @@ function updateDom(dom, prevProps, nextProps) {
   Object.keys(prevProps)
     .filter(isProperty)
     .filter(isGone(prevProps, nextProps))
-    .forEach(name => (dom[name] = ''));
+    .forEach(name => {
+      dom[name] = '';
+    });
 
   // modify props
   Object.keys(nextProps)
     .filter(isProperty)
     .filter(isNew(prevProps, nextProps))
-    .forEach(name => (dom[name] = nextProps[name]));
+    .forEach(name => {
+      dom[name] = nextProps[name];
+      if (dom.setAttribute) {
+        dom.setAttribute([name], nextProps[name]);
+      }
+    });
 
   // add event listeners
   Object.keys(nextProps)
@@ -69,7 +75,6 @@ function updateDom(dom, prevProps, nextProps) {
     .filter(isNew(prevProps, nextProps))
     .forEach(name => {
       const eventType = name.toLowerCase().substring(2);
-      console.log('updateDom -> eventType', eventType);
       dom.addEventListener(eventType, nextProps[name]);
     });
 }
