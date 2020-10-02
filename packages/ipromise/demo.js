@@ -1,4 +1,3 @@
-const { reject, resolve } = require('./index');
 const IPromise = require('./index');
 
 const p1 = new IPromise((resolve, reject) => {
@@ -12,7 +11,7 @@ const p2 = p1.then(data => {
   return 21323;
 });
 
-const p3 = p2.then(
+p2.then(
   data => {
     console.log('success:', data);
   },
@@ -21,7 +20,7 @@ const p3 = p2.then(
   }
 );
 
-const s = IPromise.resolve(1231);
+const s = IPromise.resolve('aaaa');
 s.then(data => {
   console.log('data:', data);
 });
@@ -31,13 +30,13 @@ e.then(null, err => {
   console.log('err:', err);
 });
 
-const p500 = new Promise(resolve => {
+const p500 = new IPromise(resolve => {
   setTimeout(() => {
     resolve('500ms');
-  }, 5000);
+  }, 500);
 });
 
-const p800 = new Promise((_, reject) => {
+const p800 = new IPromise((resolve, reject) => {
   setTimeout(() => {
     reject('800ms');
   }, 800);
@@ -45,5 +44,14 @@ const p800 = new Promise((_, reject) => {
 
 const a = IPromise.all([p500, p800]);
 a.then(data => {
-  console.log('data:', data);
+  console.log('all:', data);
+}).catch(err => {
+  console.log('all catch:', err);
+});
+
+const b = IPromise.race([p800, p500]);
+b.then(data => {
+  console.log('race:', data);
+}).catch(err => {
+  console.log('race catch:', err);
 });

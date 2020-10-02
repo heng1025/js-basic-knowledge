@@ -16,6 +16,7 @@
 - [ ] deep/shallow  clone
 - [ ] mvvm
 - [ ] virtual dom
+- [ ] virtual list
 - [ ] vue
 - [ ] vite
 - [ ] angular
