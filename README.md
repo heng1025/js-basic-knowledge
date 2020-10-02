@@ -7,13 +7,13 @@
 - [x] webpack usage
 - [x] webpack principle
 - [x] react (vdom,fiber,hooks)
-- [ ] closure 
-- [ ] promise
-- [ ] prototype
-- [ ] http cache
+- [x] closure 
+- [x] promise
 - [ ] event loop
+- [ ] prototype
+- [ ] http
 - [ ] debounce/throttle
-- [ ] deep/shallow  clone
+- [ ] deep/shallow clone
 - [ ] mvvm
 - [ ] virtual dom
 - [ ] virtual list
