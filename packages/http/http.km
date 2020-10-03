@@ -1,0 +1,191 @@
+{
+    "root": {
+        "data": {
+            "id": "c62j9v6y1ag0",
+            "created": 1601654890926,
+            "text": "http"
+        },
+        "children": [
+            {
+                "data": {
+                    "id": "c62ja5txsi80",
+                    "created": 1601654914084,
+                    "text": "演变 evolution",
+                    "expandState": "collapse"
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "c62ja89ialc0",
+                            "created": 1601654919379,
+                            "text": "0.9",
+                            "expandState": "collapse"
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "c62jamq4tzk0",
+                                    "created": 1601654950860,
+                                    "text": "只有get方法"
+                                },
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "data": {
+                            "id": "c62jadfx2wg0",
+                            "created": 1601654930651,
+                            "text": "1.0",
+                            "expandState": "collapse"
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "c62jasv4m9c0",
+                                    "created": 1601654964222,
+                                    "text": "更多的请求方法（post等）"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "c62jb6idywo0",
+                                    "created": 1601654993927,
+                                    "text": "状态码 status code"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "c62jba4tp8w0",
+                                    "created": 1601655001814,
+                                    "text": "请求头 header"
+                                },
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "data": {
+                            "id": "c62jagug92g0",
+                            "created": 1601654938060,
+                            "text": "1.1",
+                            "expandState": "collapse"
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "c62jbco8ql40",
+                                    "created": 1601655007342,
+                                    "text": "持久连接"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "c62jcr2748w0",
+                                    "created": 1601655117025,
+                                    "text": "pipeline 同一个连接发送多个请求，串行"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "c62jdcqt4u00",
+                                    "created": 1601655164225,
+                                    "text": "host头，同一个域名可以使用不用的web服务"
+                                },
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "data": {
+                            "id": "c62jaijtcrk0",
+                            "created": 1601654941771,
+                            "text": "2.0",
+                            "expandState": "collapse"
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "c62jbtseins0",
+                                    "created": 1601655044599,
+                                    "text": "传输的是二进制，frame"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "c62jblqnzuw0",
+                                    "created": 1601655027079,
+                                    "text": "并行传输"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "c62jbort50g0",
+                                    "created": 1601655033679,
+                                    "text": "头信息压缩，推送"
+                                },
+                                "children": []
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "data": {
+                    "id": "c62jfl3hz280",
+                    "created": 1601655339135,
+                    "text": "请求报文",
+                    "layout_right_offset": {
+                        "x": 12,
+                        "y": 31
+                    }
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "c62jfsg2nkw0",
+                            "created": 1601655355133,
+                            "text": "Get /xxx.com HTTP/1.1\nAccept: application/json",
+                            "layout_right_offset": {
+                                "x": 4,
+                                "y": 0
+                            }
+                        },
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "data": {
+                    "id": "c62jiaseyig0",
+                    "created": 1601655551790,
+                    "text": "响应报文",
+                    "layout_right_offset": {
+                        "x": 19,
+                        "y": 26
+                    },
+                    "expandState": "expand"
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "c62jisj83740",
+                            "created": 1601655590417,
+                            "text": "HTTP/1.1 200 OK\nContent-Length: 633\nContent-Type: text/plain; charset=UTF-8\nDate: Fri, 02 Oct 2020 16:17:15 GMT\n\nHI,content"
+                        },
+                        "children": []
+                    }
+                ]
+            }
+        ]
+    },
+    "template": "right",
+    "theme": "fresh-blue",
+    "version": "1.4.43"
+}
