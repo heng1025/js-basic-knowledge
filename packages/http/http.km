@@ -11,7 +11,11 @@
                     "id": "c62ja5txsi80",
                     "created": 1601654914084,
                     "text": "演变 evolution",
-                    "expandState": "collapse"
+                    "expandState": "collapse",
+                    "layout_right_offset": {
+                        "x": 18,
+                        "y": -67
+                    }
                 },
                 "children": [
                     {
@@ -140,11 +144,12 @@
                 "data": {
                     "id": "c62jfl3hz280",
                     "created": 1601655339135,
-                    "text": "请求报文",
+                    "text": "http1.1 请求报文",
                     "layout_right_offset": {
                         "x": 12,
                         "y": 31
-                    }
+                    },
+                    "expandState": "collapse"
                 },
                 "children": [
                     {
@@ -165,12 +170,12 @@
                 "data": {
                     "id": "c62jiaseyig0",
                     "created": 1601655551790,
-                    "text": "响应报文",
+                    "text": "http1.1 响应报文",
                     "layout_right_offset": {
                         "x": 19,
                         "y": 26
                     },
-                    "expandState": "expand"
+                    "expandState": "collapse"
                 },
                 "children": [
                     {
@@ -178,6 +183,28 @@
                             "id": "c62jisj83740",
                             "created": 1601655590417,
                             "text": "HTTP/1.1 200 OK\nContent-Length: 633\nContent-Type: text/plain; charset=UTF-8\nDate: Fri, 02 Oct 2020 16:17:15 GMT\n\nHI,content"
+                        },
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "data": {
+                    "id": "c63z09p91a00",
+                    "created": 1601800836582,
+                    "text": "http2.0 请求报文(按帧传输)",
+                    "layout_right_offset": {
+                        "x": 20,
+                        "y": 72
+                    },
+                    "expandState": "collapse"
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "c63z0jri8880",
+                            "created": 1601800858486,
+                            "text": "HEADERS frame\n\nDATA frame"
                         },
                         "children": []
                     }

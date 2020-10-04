@@ -9,14 +9,14 @@
 - [x] react (vdom,fiber,hooks)
 - [x] closure 
 - [x] promise
+- [x] http
 - [ ] event loop
 - [ ] prototype
-- [ ] http
 - [ ] debounce/throttle
 - [ ] deep/shallow clone
+- [ ] virtual list
 - [ ] mvvm
 - [ ] virtual dom
-- [ ] virtual list
 - [ ] vue
 - [ ] vite
 - [ ] angular
