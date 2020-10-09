@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>debounce</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        margin: 20px;
+      }
+      .ipt {
+        width: 200px;
+        height: 24px;
+        padding-left: 8px;
+        outline: none;
+        border: 1px solid #ccc;
+        font-size: 14px;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <input type="text" class="ipt" placeholder="please input something..." />
+    <div>
+      <span>normal:</span>
+      <span class="norml"></span>
+    </div>
+    <div>
+      <span>throttle:</span>
+      <span class="throttle"></span>
+    </div>
+    <div>
+      <span>debounce:</span>
+      <span class="debounce"></span>
+    </div>
+
+    <script src="./index.js"></script>
+    <script>
+      const $ipt = document.querySelector('.ipt');
+      const $norml = document.querySelector('.norml');
+      const $throttle = document.querySelector('.throttle');
+      const $debounce = document.querySelector('.debounce');
+
+      const inputNormalHandler = e => {
+        $norml.innerHTML = e.target.value;
+      };
+      const inputThrottleHandler = throttle(e => {
+        $throttle.innerHTML = e.target.value;
+      });
+      const inputDebounceHandler = debounce(e => {
+        $debounce.innerHTML = e.target.value;
+      });
+
+      $ipt.addEventListener('input', inputNormalHandler);
+      $ipt.addEventListener('input', inputThrottleHandler);
+      $ipt.addEventListener('input', inputDebounceHandler);
+    </script>
+  </body>
+</html>
