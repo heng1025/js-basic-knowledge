@@ -10,12 +10,10 @@
 - [x] closure 
 - [x] promise
 - [x] http
+- [x] deep/shallow clone
+- [x] debounce/throttle
 - [ ] event loop
-- [ ] prototype
-- [ ] debounce/throttle
-- [ ] deep/shallow clone
 - [ ] virtual list
-- [ ] mvvm
 - [ ] virtual dom
 - [ ] vue
 - [ ] vite
