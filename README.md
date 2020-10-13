@@ -15,6 +15,7 @@
 - [ ] event loop
 - [ ] virtual list
 - [ ] virtual dom
+- [ ] design pattern
 - [ ] vue
 - [ ] vite
 - [ ] angular
