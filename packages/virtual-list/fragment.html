@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>fragment</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        padding: 10px;
+      }
+      ul,
+      li {
+        list-style: none;
+      }
+      .container {
+        width: 200px;
+        height: 300px;
+        padding: 4px 8px;
+        overflow: auto;
+        border: 1px solid #ccc;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container" class="container"></div>
+    <script type="module">
+      // 需要用http协议打开页面
+      import { genLongListFragment, genLongList } from './utils.js';
+      const $container = document.getElementById('container');
+      console.time();
+      $container.appendChild(genLongListFragment(50000));
+      // $container.innerHTML = genLongList(50000);
+      console.timeEnd();
+    </script>
+  </body>
+</html>

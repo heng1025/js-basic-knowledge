@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>virtual list</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        padding: 10px;
+      }
+      ul,
+      li {
+        list-style: none;
+      }
+      .container {
+        width: 200px;
+        height: 300px;
+        padding: 4px 8px;
+        overflow: auto;
+        border: 1px solid #ccc;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container" class="container"></div>
+    <script type="module">
+      // 需要用http协议打开页面
+      import { genLongListFragment, genLongList } from './utils.js';
+      const $container = document.getElementById('container');
+      const lis = genLongList(1000);
+      const rowHeight = 30;
+      const viewHeight = 500;
+      const listHeight = rowHeight * lis.length;
+      const viewCount = parseInt(viewHeight / rowHeight);
+      $container.innerHTML = lis.slice(0, viewCount).join('');
+      $container.addEventListener('scroll', e => {
+        console.log(e.target.offsetHeight);
+        $container.innerHTML = lis.slice(0, viewCount).join('');
+      });
+    </script>
+  </body>
+</html>

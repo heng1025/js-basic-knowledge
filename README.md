@@ -12,10 +12,11 @@
 - [x] http
 - [x] deep/shallow clone
 - [x] debounce/throttle
-- [ ] event loop
-- [ ] virtual list
+- [x] event loop
+- [ ] virtual list/DocumnetFragment
 - [ ] virtual dom
 - [ ] design pattern
+- [ ] mock data
 - [ ] vue
 - [ ] vite
 - [ ] angular
