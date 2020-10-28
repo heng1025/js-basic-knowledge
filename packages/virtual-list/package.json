@@ -1,0 +1,12 @@
+{
+  "name": "virtual-list",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "serve": "serve ."
+  },
+  "devDependencies": {
+    "serve": "^11.3.2"
+  }
+}

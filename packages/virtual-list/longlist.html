@@ -10,36 +10,64 @@
         padding: 0;
       }
       body {
-        padding: 10px;
+        padding: 20px;
       }
       ul,
       li {
         list-style: none;
       }
       .container {
+        position: relative;
         width: 200px;
         height: 300px;
-        padding: 4px 8px;
         overflow: auto;
         border: 1px solid #ccc;
+      }
+      .placeholder {
+        position: absolute;
+        width: 100%;
+        left: 0;
+        top: 0;
+        z-index: -1;
+      }
+      .container > ul {
+        position: absolute;
+        width: 100%;
+        left: 0;
+        top: 0;
       }
     </style>
   </head>
   <body>
-    <div id="container" class="container"></div>
+    <div id="container" class="container">
+      <div id="placeholder" class="placeholder"></div>
+      <ul id="lisWrap"></ul>
+    </div>
     <script type="module">
       // 需要用http协议打开页面
       import { genLongListFragment, genLongList } from './utils.js';
       const $container = document.getElementById('container');
-      const lis = genLongList(1000);
+      const $lisWrap = document.getElementById('lisWrap');
+      const $placeholder = document.getElementById('placeholder');
+
+      function updateList(lis, start = 0, end) {
+        return lis.slice(start, end).join('');
+      }
+      const lis = genLongList(1000000);
       const rowHeight = 30;
-      const viewHeight = 500;
+      const viewHeight = 600;
       const listHeight = rowHeight * lis.length;
-      const viewCount = parseInt(viewHeight / rowHeight);
-      $container.innerHTML = lis.slice(0, viewCount).join('');
+      const viewCount = Math.ceil(viewHeight / rowHeight);
+
+      $placeholder.style.height = listHeight + 'px';
+      $lisWrap.innerHTML = updateList(lis, 0, viewCount);
+
       $container.addEventListener('scroll', e => {
-        console.log(e.target.offsetHeight);
-        $container.innerHTML = lis.slice(0, viewCount).join('');
+        const scrollTop = e.target.scrollTop;
+        const start = Math.floor(scrollTop / rowHeight);
+        // 修正滚动区域的位置
+        $lisWrap.style.transform = `translateY(${start * rowHeight}px)`;
+        $lisWrap.innerHTML = updateList(lis, start, start + viewCount);
       });
     </script>
   </body>
