@@ -13,7 +13,8 @@
 - [x] deep/shallow clone
 - [x] debounce/throttle
 - [x] event loop
-- [ ] virtual list/DocumnetFragment
+- [x] virtual list/DocumnetFragment
+- [x] time slice
 - [ ] virtual dom
 - [ ] design pattern
 - [ ] mock data

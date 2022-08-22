@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Time slice</title>
+</head>
+
+<body>
+  <div>Time Slice</div>
+  <ul id="container"></ul>
+  <script>
+    //需要插入的容器
+    let ul = document.getElementById("container");
+    // 插入十万条数据
+    let total = 100000;
+    // 一次插入 20 条
+    let once = 50;
+    //每条记录的索引
+    let index = 0;
+
+    // 同步插入
+    function loop2(num) {
+      //  记录任务开始时间
+      let now = Date.now();
+      // 将数据插入容器中
+      for (let i = 0; i < num; i++) {
+        let li = document.createElement("li");
+        li.innerText = i + " : " + ~~(Math.random() * total);;
+        ul.appendChild(li);
+      }
+
+      console.log("JS运行时间：", Date.now() - now);
+      setTimeout(() => {
+        console.log("总运行时间：", Date.now() - now);
+      }, 0);
+    }
+
+    // setTimeout
+    function loop1(curTotal, curIndex) {
+      if (curTotal <= 0) {
+        return false;
+      }
+      //每页多少条
+      let pageCount = Math.min(curTotal, once);
+
+      setTimeout(() => {
+        for (let i = 0; i < pageCount; i++) {
+          let li = document.createElement("li");
+          li.innerText = curIndex + i + " : " + ~~(Math.random() * total);
+          ul.appendChild(li);
+        }
+
+        loop1(curTotal - pageCount, curIndex + pageCount);
+      }, 0);
+    }
+
+    // rAf
+    function loop(curTotal, curIndex) {
+      if (curTotal <= 0) {
+        return false;
+      }
+      //每页多少条
+      let pageCount = Math.min(curTotal, once);
+
+      let fragment = document.createDocumentFragment();
+      window.requestAnimationFrame(function () {
+        for (let i = 0; i < pageCount; i++) {
+          let li = document.createElement("li");
+          li.innerText = curIndex + i + " : " + ~~(Math.random() * total);
+          fragment.appendChild(li);
+        }
+        ul.appendChild(fragment);
+        loop(curTotal - pageCount, curIndex + pageCount);
+      });
+    }
+
+    loop(total, index);
+  </script>
+</body>
+
+</html>
